@@ -1,0 +1,78 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: mdeditor-springboot
+
+  # H2 Database (Development)
+  datasource:
+    url: jdbc:h2:mem:mdeditor;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  # MySQL (Production - uncomment to use)
+  # datasource:
+  #   url: jdbc:mysql://localhost:3306/mdeditor?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8
+  #   username: root
+  #   password: ${DB_PASSWORD:root}
+  #   driver-class-name: com.mysql.cj.jdbc.Driver
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+        # dialect: org.hibernate.dialect.MySQL8Dialect # For MySQL
+
+  thymeleaf:
+    cache: false
+    encoding: UTF-8
+    mode: HTML
+    prefix: classpath:/templates/
+    suffix: .html
+
+  # Internationalization
+  messages:
+    basename: messages
+    encoding: UTF-8
+    cache-duration: 3600
+    fallback-to-system-locale: false
+
+  # File upload
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+# JWT Configuration
+jwt:
+  secret: mdeditor-secret-key-for-jwt-token-generation-2026
+  expiration: 86400000 # 24 hours
+
+# Export Configuration
+export:
+  pdf:
+    page-size: A4
+    margin: 10
+  image:
+    scale: 2
+    format: PNG
+
+# Logging
+logging:
+  level:
+    root: INFO
+    com.mdeditor: DEBUG
+    org.springframework.security: INFO

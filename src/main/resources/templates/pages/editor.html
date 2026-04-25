@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/main-layout :: head('Modern MD Editor - 编辑器')}"></head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="brand">
+                    <img th:src="@{/images/logo.svg}" alt="Modern MD Editor" class="logo-img">
+                    <div class="brand-text">
+                        <h1>Modern MD Editor</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="view-toggle-group">
+                    <button class="view-toggle-btn active" data-view="both">
+                        <svg viewBox="0 0 24 24" width="16" height="16">
+                            <path fill="currentColor" d="M3,3H11V5H3V3M13,3H21V5H13V3M3,7H11V9H3V7M13,7H21V9H13V7M3,11H11V13H3V11M13,11H21V13H13V11M3,15H11V17H3V15M13,15H21V17H13V15M3,19H11V21H3V19Z"/>
+                        </svg>
+                    </button>
+                    <button class="view-toggle-btn" data-view="editor">
+                        <svg viewBox="0 0 24 24" width="16" height="16">
+                            <path fill="currentColor" d="M14.6,16.6L19.2,12L14.6,7.4L16,6L22,12L16,18L14.6,16.6M9.4,16.6L4.8,12L9.4,7.4L8,6L2,12L8,18L9.4,16.6Z"/>
+                        </svg>
+                    </button>
+                    <button class="view-toggle-btn" data-view="preview">
+                        <svg viewBox="0 0 24 24" width="16" height="16">
+                            <path fill="currentColor" d="M3 5h18v2H3V5m0 4h18v2H3V9m0 4h10v2H3v-2z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <button class="header-btn" id="btn-settings">
+                    <svg viewBox="0 0 24 24" width="16" height="16">
+                        <path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.22,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.22,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"/>
+                    </svg>
+                    <span>设置</span>
+                </button>
+
+                <button class="header-btn" id="btn-copy">
+                    <svg viewBox="0 0 24 24" width="16" height="16">
+                        <path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/>
+                    </svg>
+                    <span>复制</span>
+                </button>
+
+                <button class="header-btn" id="btn-export">
+                    <svg viewBox="0 0 24 24" width="16" height="16">
+                        <path fill="currentColor" d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
+                    </svg>
+                    <span>下载</span>
+                </button>
+
+                <a th:href="@{/login}" class="header-btn">登录</a>
+                <a th:href="@{/register}" class="header-btn">注册</a>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <div class="editor-pane">
+                <textarea id="editor"></textarea>
+            </div>
+            <div class="preview-pane">
+                <div class="preview-toolbar">
+                    <div class="preview-mode-selector">
+                        <button class="mode-btn active" data-mode="desktop">桌面</button>
+                        <button class="mode-btn" data-mode="tablet">平板</button>
+                        <button class="mode-btn" data-mode="mobile">手机</button>
+                    </div>
+                </div>
+                <div class="preview-content markdown-body" id="preview"></div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-stats">
+                <span id="char-count">0 字符</span>
+                <span id="line-count">0 行</span>
+                <span id="word-count">0 词</span>
+                <span id="read-time">1 分钟</span>
+            </div>
+            <div class="footer-options">
+                <label>
+                    <input type="checkbox" id="sync-scroll" checked>
+                    同步滚动
+                </label>
+            </div>
+        </footer>
+
+        <!-- Settings Panel -->
+        <div class="settings-panel" id="settings-panel" style="display:none;">
+            <div class="settings-overlay"></div>
+            <div class="settings-content">
+                <div class="settings-header">
+                    <h2>设置</h2>
+                    <button class="close-btn">×</button>
+                </div>
+                <div class="settings-body">
+                    <section class="settings-section">
+                        <h3>主题色</h3>
+                        <div class="theme-grid">
+                            <button class="theme-btn" data-theme="meihei">煤黑</button>
+                            <button class="theme-btn" data-theme="github">GitHub</button>
+                            <button class="theme-btn" data-theme="wechat">微信绿</button>
+                            <button class="theme-btn" data-theme="vuepress">VuePress</button>
+                            <button class="theme-btn" data-theme="cobalt">钴蓝</button>
+                            <button class="theme-btn" data-theme="marry">喜庆红</button>
+                        </div>
+                    </section>
+                    <section class="settings-section">
+                        <h3>字号</h3>
+                        <input type="range" id="font-size" min="12" max="24" value="16">
+                        <span id="font-size-value">16px</span>
+                    </section>
+                    <section class="settings-section">
+                        <h3>行高</h3>
+                        <input type="range" id="line-height" min="1" max="2.5" step="0.1" value="1.6">
+                        <span id="line-height-value">1.6</span>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="notification-container" id="notifications"></div>
+
+        <!-- Scripts -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/markdown/markdown.min.js"></script>
+        <script th:src="@{/js/editor.js}"></script>
+        <script th:src="@{/js/app.js}"></script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - Modern MD Editor</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+    <link rel="icon" th:href="@{/images/favicon.svg}" type="image/svg+xml">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <img th:src="@{/images/logo.svg}" alt="Modern MD Editor" class="auth-logo">
+                <h1>Modern MD Editor</h1>
+                <p>创建您的账户</p>
+            </div>
+
+            <form class="auth-form" id="register-form" th:action="@{/api/auth/register}" method="post">
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input type="text" id="username" name="username" required
+                           minlength="3" maxlength="50" placeholder="请输入用户名 (3-50字符)">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">邮箱 (可选)</label>
+                    <input type="email" id="email" name="email" placeholder="请输入邮箱">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" id="password" name="password" required
+                           minlength="6" maxlength="100" placeholder="请输入密码 (至少6位)">
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm-password">确认密码</label>
+                    <input type="password" id="confirm-password" name="confirmPassword" required
+                           placeholder="请再次输入密码">
+                </div>
+
+                <button type="submit" class="auth-btn">注册</button>
+
+                <div class="auth-links">
+                    <a th:href="@{/login}">已有账户？点击登录</a>
+                    <a th:href="@{/}">返回首页</a>
+                </div>
+            </form>
+
+            <div class="auth-error" id="auth-error" style="display:none;"></div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/auth.js}"></script>
+</body>
+</html>

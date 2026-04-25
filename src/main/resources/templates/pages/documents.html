@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的文档 - Modern MD Editor</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/documents.css}">
+    <link rel="icon" th:href="@{/images/favicon.svg}" type="image/svg+xml">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="brand">
+                    <img th:src="@{/images/logo.svg}" alt="Modern MD Editor" class="logo-img">
+                    <div class="brand-text">
+                        <h1>Modern MD Editor</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <a th:href="@{/editor}" class="header-btn">新建文档</a>
+                <button class="header-btn" id="btn-logout">退出登录</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="documents-main">
+            <div class="documents-header">
+                <h2>我的文档</h2>
+                <button class="new-doc-btn" id="btn-new">
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+                    </svg>
+                    新建文档
+                </button>
+            </div>
+
+            <div class="documents-grid" id="documents-grid">
+                <!-- Documents will be loaded dynamically -->
+                <div class="loading" id="loading">加载中...</div>
+            </div>
+
+            <div class="empty-state" id="empty-state" style="display:none;">
+                <svg viewBox="0 0 24 24" width="48" height="48">
+                    <path fill="currentColor" d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                </svg>
+                <p>暂无文档</p>
+                <button class="new-doc-btn" id="btn-new-empty">创建第一个文档</button>
+            </div>
+        </main>
+    </div>
+
+    <script th:src="@{/js/documents.js}"></script>
+</body>
+</html>

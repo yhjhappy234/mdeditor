@@ -1,0 +1,411 @@
+/* App Layout */
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: var(--theme-bg-primary);
+    border-bottom: 1px solid var(--theme-border-light);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.app-header .header-left {
+    display: flex;
+    align-items: center;
+}
+
+.app-header .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.app-header .logo-img {
+    width: 32px;
+    height: 32px;
+}
+
+.app-header .brand-text h1 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--theme-text-primary);
+}
+
+.app-header .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border: 1px solid var(--theme-border-light);
+    border-radius: 6px;
+    background: var(--theme-bg-primary);
+    color: var(--theme-text-primary);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.header-btn:hover {
+    background: var(--theme-bg-secondary);
+    border-color: var(--theme-primary);
+}
+
+.header-btn.active {
+    background: var(--theme-primary);
+    color: #fff;
+    border-color: var(--theme-primary);
+}
+
+/* View Toggle */
+.view-toggle-group {
+    display: flex;
+    gap: 4px;
+}
+
+.view-toggle-btn {
+    padding: 8px;
+    border: 1px solid var(--theme-border-light);
+    border-radius: 4px;
+    background: var(--theme-bg-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.view-toggle-btn:hover {
+    background: var(--theme-bg-secondary);
+}
+
+.view-toggle-btn.active {
+    background: var(--theme-primary-light);
+    border-color: var(--theme-primary);
+}
+
+/* App Main */
+.app-main {
+    display: flex;
+    flex: 1;
+    gap: 1px;
+    background: var(--theme-border-light);
+    min-height: calc(100vh - 120px);
+}
+
+.app-main.view-both .editor-pane,
+.app-main.view-both .preview-pane {
+    flex: 1;
+}
+
+.app-main.view-editor .preview-pane {
+    display: none;
+}
+
+.app-main.view-editor .editor-pane {
+    flex: 1;
+}
+
+.app-main.view-preview .editor-pane {
+    display: none;
+}
+
+.app-main.view-preview .preview-pane {
+    flex: 1;
+}
+
+/* Editor Pane */
+.editor-pane {
+    display: flex;
+    flex-direction: column;
+    background: var(--theme-bg-primary);
+}
+
+.editor-toolbar {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--theme-border-light);
+    gap: 12px;
+}
+
+.editor-toolbar .toolbar-left {
+    display: flex;
+    gap: 8px;
+}
+
+.editor-toolbar .toolbar-btn {
+    padding: 6px 10px;
+    border: 1px solid var(--theme-border-light);
+    border-radius: 4px;
+    background: var(--theme-bg-primary);
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s ease;
+}
+
+.editor-toolbar .toolbar-btn:hover {
+    background: var(--theme-bg-secondary);
+}
+
+.toolbar-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--theme-border-light);
+}
+
+.codemirror-wrapper {
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Preview Pane */
+.preview-pane {
+    display: flex;
+    flex-direction: column;
+    background: var(--theme-bg-primary);
+}
+
+.preview-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--theme-border-light);
+}
+
+.preview-mode-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mode-label {
+    font-size: 14px;
+    color: var(--theme-text-secondary);
+}
+
+.mode-buttons {
+    display: flex;
+    gap: 4px;
+}
+
+.mode-btn {
+    padding: 6px;
+    border: 1px solid var(--theme-border-light);
+    border-radius: 4px;
+    background: var(--theme-bg-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mode-btn:hover {
+    background: var(--theme-bg-secondary);
+}
+
+.mode-btn.active {
+    background: var(--theme-primary-light);
+    border-color: var(--theme-primary);
+}
+
+.preview-container {
+    flex: 1;
+    overflow: auto;
+    padding: 20px;
+}
+
+.preview-container.viewport-desktop {
+    max-width: 100%;
+}
+
+.preview-container.viewport-tablet {
+    max-width: 768px;
+    margin: 0 auto;
+}
+
+.preview-container.viewport-mobile {
+    max-width: 375px;
+    margin: 0 auto;
+}
+
+.preview-rendered {
+    background: var(--theme-bg-primary);
+    padding: 20px;
+}
+
+/* App Footer */
+.app-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 20px;
+    background: var(--theme-bg-primary);
+    border-top: 1px solid var(--theme-border-light);
+    font-size: 13px;
+    color: var(--theme-text-secondary);
+}
+
+.app-footer .footer-left {
+    display: flex;
+    gap: 16px;
+}
+
+.app-footer .footer-right {
+    display: flex;
+    align-items: center;
+}
+
+.sync-scroll-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+/* Settings Panel */
+.settings-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 200;
+    display: flex;
+}
+
+.settings-overlay {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.settings-content {
+    width: 400px;
+    background: var(--theme-bg-primary);
+    border-left: 1px solid var(--theme-border-light);
+    display: flex;
+    flex-direction: column;
+    animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.settings-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--theme-border-light);
+}
+
+.settings-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.settings-header .close-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 4px;
+    background: var(--theme-bg-secondary);
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.settings-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.settings-section {
+    margin-bottom: 24px;
+}
+
+.settings-section h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--theme-text-primary);
+}
+
+.theme-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.theme-btn {
+    padding: 12px;
+    border: 2px solid var(--theme-border-light);
+    border-radius: 8px;
+    background: var(--theme-bg-primary);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.theme-btn:hover {
+    border-color: var(--theme-primary);
+}
+
+.theme-btn.active {
+    border-color: var(--theme-primary);
+    background: var(--theme-primary-light);
+}
+
+/* Slider */
+.size-slider,
+.spacing-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.size-slider input,
+.spacing-item input {
+    flex: 1;
+}
+
+.spacing-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.spacing-item label {
+    width: 60px;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .app-main {
+        flex-direction: column;
+    }
+
+    .app-main.view-both .editor-pane,
+    .app-main.view-both .preview-pane {
+        flex: none;
+        min-height: 50vh;
+    }
+
+    .settings-content {
+        width: 100%;
+    }
+
+    .header-btn span {
+        display: none;
+    }
+}

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Modern MD Editor</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/themes/theme-root.css}">
+    <link rel="stylesheet" th:href="@{/css/components/app-layout.css}">
+    <link rel="stylesheet" th:href="@{/css/components/app-header.css}">
+    <link rel="stylesheet" th:href="@{/css/components/app-footer.css}">
+    <link rel="stylesheet" th:href="@{/css/components/markdown-editor.css}">
+    <link rel="stylesheet" th:href="@{/css/components/preview-pane.css}">
+    <link rel="stylesheet" th:href="@{/css/components/settings.css}">
+    <link rel="stylesheet" th:href="@{/css/prism-variables.css}">
+
+    <!-- CodeMirror CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/idea.min.css">
+
+    <!-- Favicon -->
+    <link rel="icon" th:href="@{/images/favicon.svg}" type="image/svg+xml">
+
+    <!-- Custom Theme Variables -->
+    <style th:inline="text">
+        :root {
+            --theme-primary: /*[[${themePrimary ?: '#333333'}]]*/;
+            --theme-primary-light: /*[[${themePrimaryLight ?: '#666666'}]]*/;
+            --theme-font-size: /*[[${fontSize ?: '16'}]]*/px;
+            --theme-line-height: /*[[${lineHeight ?: '1.6'}]]*/;
+        }
+    </style>
+</head>
+
+<body th:fragment="body">
+    <div id="app">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="brand">
+                    <img th:src="@{/images/logo.svg}" alt="Modern MD Editor" class="logo-img">
+                    <div class="brand-text">
+                        <h1 th:text="#{header.brandTitle}">Modern MD Editor</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <!-- View Toggle Buttons -->
+                <div class="view-toggle-group">
+                    <button class="view-toggle-btn active" id="view-both" title="编辑器 + 预览">
+                        <svg viewBox="0 0 24 24" width="16" height="16">
+                            <path fill="currentColor" d="M3,3H11V5H3V3M13,3H21V5H13V3M3,7H11V9H3V7M13,7H21V9H13V7M3,11H11V13H3V11M13,11H21V13H13V11M3,15H11V17H3V15M13,15H21V17H13V15M3,19H11V21H3V19Z"/>
+                        </svg>
+                    </button>
+                    <button class="view-toggle-btn" id="view-editor" title="仅显示编辑器">
+                        <svg viewBox="0 0 24 24" width="16" height="16">
+                            <path fill="currentColor" d="M14.6,16.6L19.2,12L14.6,7.4L16,6L22,12L16,18L14.6,16.6M9.4,16.6L4.8,12L9.4,7.4L8,6L2,12L8,18L9.4,16.6Z"/>
+                        </svg>
+                    </button>
+                    <button class="view-toggle-btn" id="view-wysiwyg" title="所见即所得">
+                        <svg viewBox="0 0 24 24" width="16" height="16">
+                            <path fill="currentColor" d="M3 5h18v2H3V5m0 4h18v2H3V9m0 4h10v2H3v-2z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Settings Button -->
+                <button class="header-btn" id="settings-btn">
+                    <svg viewBox="0 0 24 24" width="16" height="16">
+                        <path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.22,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.22,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"/>
+                    </svg>
+                    <span th:text="#{header.settings}">设置</span>
+                </button>
+
+                <!-- Copy Dropdown -->
+                <button class="header-btn" id="copy-btn">
+                    <svg viewBox="0 0 24 24" width="16" height="16">
+                        <path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"/>
+                    </svg>
+                    <span th:text="#{header.copy}">复制</span>
+                </button>
+
+                <!-- Export Dropdown -->
+                <button class="header-btn" id="export-btn">
+                    <svg viewBox="0 0 24 24" width="16" height="16">
+                        <path fill="currentColor" d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
+                    </svg>
+                    <span th:text="#{header.export}">下载</span>
+                </button>
+
+                <!-- Language Switcher -->
+                <button class="header-btn" id="language-btn">
+                    <span style="display:inline-flex;align-items:center;gap:6px;color:var(--theme-primary)">
+                        <svg viewBox="0 0 1024 1024" width="18" height="18">
+                            <path d="M399.189333 232.32h228.778667v82.645333h-92.842667c-20.309333 88.32-67.456 165.546667-127.488 230.144 55.125333 53.077333 115.498667 99.968 171.690667 134.4 0 0-31.146667 65.152-36.266667 74.666667-64.341333-38.570667-133.12-91.733333-195.370666-152.021333-84.736 71.808-185.472 124.672-278.869334 155.818666L42.666667 679.552c83.2-27.733333 172.714667-74.666667 247.722666-137.216C228.010667 472.064 174.933333 392.832 150.784 314.965333H55.68V232.32H306.773333l-33.664-67.370667L347.050667 128l52.138666 104.32zM238.506667 314.965333c21.845333 54.229333 61.312 113.066667 111.829333 170.368 46.250667-50.602667 81.408-107.776 99.456-170.368H238.506667z m548.48 181.248h-95.402667l-190.72 413.312h95.36l58.666667-127.146666h168.746666l58.709334 127.146666h95.36l-190.72-413.312z m-47.701334 103.338667l46.208 100.138667h-92.416l46.208-100.138667z" fill="currentColor"></path>
+                        </svg>
+                        <span th:text="${#locale.language == 'zh' ? '中文' : 'English'}">中文</span>
+                    </span>
+                </button>
+
+                <!-- User Menu (if authenticated) -->
+                <div class="user-menu" id="user-menu" style="display:none;">
+                    <button class="header-btn">
+                        <span id="username-display">用户</span>
+                    </button>
+                </div>
+
+                <!-- Login/Register (if not authenticated) -->
+                <div class="auth-buttons" id="auth-buttons">
+                    <a th:href="@{/login}" class="header-btn">
+                        <span th:text="#{common.login}">登录</span>
+                    </a>
+                    <a th:href="@{/register}" class="header-btn">
+                        <span th:text="#{common.register}">注册</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Editor Pane -->
+            <div class="editor-pane" id="editor-pane">
+                <div class="editor-toolbar">
+                    <div class="toolbar-left">
+                        <!-- Editor operations -->
+                    </div>
+                </div>
+                <div class="codemirror-wrapper">
+                    <textarea id="markdown-content" placeholder="在此输入 Markdown 内容..."></textarea>
+                </div>
+            </div>
+
+            <!-- Preview Pane -->
+            <div class="preview-pane" id="preview-pane">
+                <div class="preview-toolbar">
+                    <div class="preview-mode-selector">
+                        <label class="mode-label" th:text="#{main.preview.preview}">预览模式:</label>
+                        <div class="mode-buttons">
+                            <button class="mode-btn active" id="mode-desktop" title="桌面端预览">
+                                <svg viewBox="0 0 24 24" width="18" height="18">
+                                    <path fill="currentColor" d="M21,16H3V4H21M21,2H3C1.89,2 1,2.89 1,4V16A2,2 0 0,0 3,18H10V20H8V22H16V20H14V18H21A2,2 0 0,0 23,16V4C23,2.89 22.1,2 21,2Z"/>
+                                </svg>
+                            </button>
+                            <button class="mode-btn" id="mode-tablet" title="平板端预览">
+                                <svg viewBox="0 0 24 24" width="18" height="18">
+                                    <path fill="currentColor" d="M19,18H5V6H19M21,4H3C1.89,4 1,4.89 1,6V18A2,2 0 0,0 3,20H21A2,2 0 0,0 23,18V6C23,4.89 22.1,4 21,4Z"/>
+                                </svg>
+                            </button>
+                            <button class="mode-btn" id="mode-mobile" title="手机端预览">
+                                <svg viewBox="0 0 24 24" width="18" height="18">
+                                    <path fill="currentColor" d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="preview-container viewport-desktop">
+                    <div class="preview-rendered markdown-body modern-markdown" id="preview-content">
+                        <!-- Preview content will be rendered here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-left">
+                <span class="stats-item" id="char-count">0 字符</span>
+                <span class="stats-item" id="line-count">0 行</span>
+                <span class="stats-item" id="word-count">0 词</span>
+                <span class="stats-item" id="read-time">1 分钟</span>
+            </div>
+            <div class="footer-right">
+                <label class="sync-scroll-label">
+                    <input type="checkbox" id="sync-scroll" checked>
+                    <span th:text="#{main.preview.syncScroll}">同步滚动</span>
+                </label>
+            </div>
+        </footer>
+
+        <!-- Settings Panel (Modal) -->
+        <div class="settings-panel" id="settings-panel" style="display:none;">
+            <div class="settings-overlay" id="settings-overlay"></div>
+            <div class="settings-content">
+                <div class="settings-header">
+                    <h2 th:text="#{settings.header.title}">设置</h2>
+                    <button class="close-btn" id="settings-close">×</button>
+                </div>
+                <div class="settings-body">
+                    <!-- Theme System -->
+                    <section class="settings-section">
+                        <h3 th:text="#{settings.nav.themeSystem}">主题系统</h3>
+                        <div class="theme-options" id="theme-system-options">
+                            <!-- Theme system options will be rendered here -->
+                        </div>
+                    </section>
+
+                    <!-- Color Theme -->
+                    <section class="settings-section">
+                        <h3 th:text="#{settings.nav.colorTheme}">主题色</h3>
+                        <div class="color-options" id="color-theme-options">
+                            <!-- Color options will be rendered here -->
+                        </div>
+                    </section>
+
+                    <!-- Code Style -->
+                    <section class="settings-section">
+                        <h3 th:text="#{settings.nav.codeStyle}">代码样式</h3>
+                        <div class="code-options" id="code-style-options">
+                            <!-- Code style options will be rendered here -->
+                        </div>
+                    </section>
+
+                    <!-- Font Settings -->
+                    <section class="settings-section">
+                        <h3 th:text="#{settings.nav.fontSettings}">字体设置</h3>
+                        <div class="font-options" id="font-options">
+                            <!-- Font options will be rendered here -->
+                        </div>
+                    </section>
+
+                    <!-- Font Size -->
+                    <section class="settings-section">
+                        <h3 th:text="#{settings.nav.fontSize}">字号设置</h3>
+                        <div class="size-slider">
+                            <input type="range" id="font-size-slider" min="12" max="24" value="16">
+                            <span id="font-size-display">16px</span>
+                        </div>
+                    </section>
+
+                    <!-- Spacing Settings -->
+                    <section class="settings-section">
+                        <h3 th:text="#{settings.nav.spacing}">间距设置</h3>
+                        <div class="spacing-options">
+                            <div class="spacing-item">
+                                <label>行高</label>
+                                <input type="range" id="line-height-slider" min="1.0" max="2.5" step="0.1" value="1.6">
+                                <span id="line-height-display">1.6</span>
+                            </div>
+                            <div class="spacing-item">
+                                <label>字距</label>
+                                <input type="range" id="letter-spacing-slider" min="0" max="5" step="0.5" value="0">
+                                <span id="letter-spacing-display">0px</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Container -->
+        <div class="notification-container" id="notification-container"></div>
+
+        <!-- JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/markdown/markdown.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/continuelist.min.js"></script>
+        <script th:src="@{/js/editor.js}"></script>
+        <script th:src="@{/js/theme.js}"></script>
+        <script th:src="@{/js/export.js}"></script>
+    </div>
+</body>
+
+<!-- Full Layout Template -->
+<head th:replace="~{layout/main-layout :: head(${title})}"></head>
+<body th:replace="~{layout/main-layout :: body}"></body>
+</html>

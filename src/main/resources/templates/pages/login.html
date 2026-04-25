@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - Modern MD Editor</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+    <link rel="icon" th:href="@{/images/favicon.svg}" type="image/svg+xml">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <img th:src="@{/images/logo.svg}" alt="Modern MD Editor" class="auth-logo">
+                <h1>Modern MD Editor</h1>
+                <p>登录您的账户</p>
+            </div>
+
+            <form class="auth-form" id="login-form" th:action="@{/api/auth/login}" method="post">
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input type="text" id="username" name="username" required placeholder="请输入用户名">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" id="password" name="password" required placeholder="请输入密码">
+                </div>
+
+                <button type="submit" class="auth-btn">登录</button>
+
+                <div class="auth-links">
+                    <a th:href="@{/register}">没有账户？点击注册</a>
+                    <a th:href="@{/}">返回首页</a>
+                </div>
+            </form>
+
+            <div class="auth-error" id="auth-error" style="display:none;"></div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/auth.js}"></script>
+</body>
+</html>

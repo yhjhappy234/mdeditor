@@ -1,0 +1,77 @@
+/* Settings Panel Styles - see app-layout.css */
+
+/* Color Options */
+.color-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.color-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--theme-border-light);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.color-btn:hover {
+    transform: scale(1.1);
+}
+
+.color-btn.active {
+    border-color: var(--theme-primary);
+    box-shadow: 0 0 0 2px var(--theme-primary-light);
+}
+
+/* Code Style Options */
+.code-options {
+    display: flex;
+    gap: 8px;
+}
+
+.code-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--theme-border-light);
+    border-radius: 4px;
+    background: var(--theme-bg-primary);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.code-btn:hover {
+    background: var(--theme-bg-secondary);
+}
+
+.code-btn.active {
+    background: var(--theme-primary-light);
+    border-color: var(--theme-primary);
+}
+
+/* Font Options */
+.font-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.font-btn {
+    padding: 8px 12px;
+    border: 1px solid var(--theme-border-light);
+    border-radius: 4px;
+    background: var(--theme-bg-primary);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.font-btn:hover {
+    background: var(--theme-bg-secondary);
+}
+
+.font-btn.active {
+    background: var(--theme-primary-light);
+    border-color: var(--theme-primary);
+}

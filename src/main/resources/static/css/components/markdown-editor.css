@@ -1,0 +1,22 @@
+/* Markdown Editor Styles */
+
+/* CodeMirror Customization */
+.codemirror-wrapper .CodeMirror {
+    height: 100%;
+    font-size: 14px;
+    line-height: 1.6;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+.CodeMirror-scroll {
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+/* Editor placeholder */
+#markdown-content {
+    width: 100%;
+    height: 100%;
+    border: none;
+    resize: none;
+}

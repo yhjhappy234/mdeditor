@@ -1,0 +1,27 @@
+/* Prism Variables for Code Highlighting */
+
+/* Default Prism Theme Variables */
+:root {
+    --prism-background: #f6f8fa;
+    --prism-text: #24292e;
+    --prism-comment: #6a737d;
+    --prism-keyword: #d73a49;
+    --prism-string: #032f62;
+    --prism-function: #6f42c1;
+    --prism-number: #005cc5;
+    --prism-operator: #d73a49;
+    --prism-punctuation: #24292e;
+}
+
+/* Dark Mode Prism Variables */
+[data-theme-system="dark"] {
+    --prism-background: #1a1a2e;
+    --prism-text: #eaeaea;
+    --prism-comment: #6a737d;
+    --prism-keyword: #ff7b72;
+    --prism-string: #a5d6ff;
+    --prism-function: #d2a8ff;
+    --prism-number: #79c0ff;
+    --prism-operator: #ff7b72;
+    --prism-punctuation: #eaeaea;
+}

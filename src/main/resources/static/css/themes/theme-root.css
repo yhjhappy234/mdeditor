@@ -1,0 +1,22 @@
+/* Theme Root Variables */
+:root {
+    --theme-system: light;
+}
+
+/* Dark Theme */
+[data-theme-system="dark"] {
+    --theme-bg-primary: #1a1a2e;
+    --theme-bg-secondary: #16213e;
+    --theme-text-primary: #eaeaea;
+    --theme-text-secondary: #a0a0a0;
+    --theme-border-light: #3a3a5a;
+}
+
+/* Light Theme */
+[data-theme-system="light"] {
+    --theme-bg-primary: #ffffff;
+    --theme-bg-secondary: #f6f8fa;
+    --theme-text-primary: #1f2328;
+    --theme-text-secondary: #656d76;
+    --theme-border-light: #d0d7de;
+}

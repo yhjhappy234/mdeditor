@@ -23,7 +23,7 @@ public class ExportController {
     @PostMapping("/pdf")
     public ResponseEntity<byte[]> exportPdf(@RequestBody ExportRequest request) {
         try {
-            byte[] pdfContent = exportService.exportAsPdf(request.getContent(), request.getColorTheme());
+            byte[] pdfContent = exportService.exportAsPdf(request.content(), request.colorTheme());
             String filename = exportService.generateFilename("pdf");
 
             HttpHeaders headers = new HttpHeaders();
@@ -44,7 +44,7 @@ public class ExportController {
     @PostMapping("/image")
     public ResponseEntity<byte[]> exportImage(@RequestBody ExportRequest request) {
         try {
-            byte[] imageContent = exportService.exportAsImage(request.getContent(), request.getColorTheme());
+            byte[] imageContent = exportService.exportAsImage(request.content(), request.colorTheme());
             String filename = exportService.generateFilename("png");
 
             HttpHeaders headers = new HttpHeaders();

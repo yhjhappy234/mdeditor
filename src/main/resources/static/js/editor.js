@@ -13,7 +13,7 @@ let currentViewportMode = 'desktop';
 
 // Initialize CodeMirror
 function initEditor() {
-    const textarea = document.getElementById('editor');
+    const textarea = document.getElementById('markdown-content');
     if (!textarea) return;
 
     editor = CodeMirror.fromTextArea(textarea, {
@@ -58,7 +58,7 @@ function handleContentChange() {
 
 // Update preview
 async function updatePreview() {
-    const previewEl = document.getElementById('preview');
+    const previewEl = document.getElementById('preview-content');
     if (!previewEl) return;
 
     try {
@@ -111,7 +111,7 @@ function countWords(text) {
 function handleEditorScroll() {
     if (!syncScrollEnabled) return;
 
-    const previewEl = document.getElementById('preview');
+    const previewEl = document.getElementById('preview-content');
     if (!previewEl) return;
 
     const scrollInfo = editor.getScrollInfo();

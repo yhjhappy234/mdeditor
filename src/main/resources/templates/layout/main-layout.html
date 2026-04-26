@@ -49,17 +49,17 @@
             <div class="header-right">
                 <!-- View Toggle Buttons -->
                 <div class="view-toggle-group">
-                    <button class="view-toggle-btn active" id="view-both" title="编辑器 + 预览">
+                    <button class="view-toggle-btn active" id="view-both" data-view="both" title="编辑器 + 预览">
                         <svg viewBox="0 0 24 24" width="16" height="16">
                             <path fill="currentColor" d="M3,3H11V5H3V3M13,3H21V5H13V3M3,7H11V9H3V7M13,7H21V9H13V7M3,11H11V13H3V11M13,11H21V13H13V11M3,15H11V17H3V15M13,15H21V17H13V15M3,19H11V21H3V19Z"/>
                         </svg>
                     </button>
-                    <button class="view-toggle-btn" id="view-editor" title="仅显示编辑器">
+                    <button class="view-toggle-btn" id="view-editor" data-view="editor" title="仅显示编辑器">
                         <svg viewBox="0 0 24 24" width="16" height="16">
                             <path fill="currentColor" d="M14.6,16.6L19.2,12L14.6,7.4L16,6L22,12L16,18L14.6,16.6M9.4,16.6L4.8,12L9.4,7.4L8,6L2,12L8,18L9.4,16.6Z"/>
                         </svg>
                     </button>
-                    <button class="view-toggle-btn" id="view-wysiwyg" title="所见即所得">
+                    <button class="view-toggle-btn" id="view-preview" data-view="preview" title="仅显示预览">
                         <svg viewBox="0 0 24 24" width="16" height="16">
                             <path fill="currentColor" d="M3 5h18v2H3V5m0 4h18v2H3V9m0 4h10v2H3v-2z"/>
                         </svg>
@@ -139,17 +139,17 @@
                     <div class="preview-mode-selector">
                         <label class="mode-label" th:text="#{main.preview.preview}">预览模式:</label>
                         <div class="mode-buttons">
-                            <button class="mode-btn active" id="mode-desktop" title="桌面端预览">
+                            <button class="mode-btn active" id="mode-desktop" data-mode="desktop" title="桌面端预览">
                                 <svg viewBox="0 0 24 24" width="18" height="18">
                                     <path fill="currentColor" d="M21,16H3V4H21M21,2H3C1.89,2 1,2.89 1,4V16A2,2 0 0,0 3,18H10V20H8V22H16V20H14V18H21A2,2 0 0,0 23,16V4C23,2.89 22.1,2 21,2Z"/>
                                 </svg>
                             </button>
-                            <button class="mode-btn" id="mode-tablet" title="平板端预览">
+                            <button class="mode-btn" id="mode-tablet" data-mode="tablet" title="平板端预览">
                                 <svg viewBox="0 0 24 24" width="18" height="18">
                                     <path fill="currentColor" d="M19,18H5V6H19M21,4H3C1.89,4 1,4.89 1,6V18A2,2 0 0,0 3,20H21A2,2 0 0,0 23,18V6C23,4.89 22.1,4 21,4Z"/>
                                 </svg>
                             </button>
-                            <button class="mode-btn" id="mode-mobile" title="手机端预览">
+                            <button class="mode-btn" id="mode-mobile" data-mode="mobile" title="手机端预览">
                                 <svg viewBox="0 0 24 24" width="18" height="18">
                                     <path fill="currentColor" d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
                                 </svg>
@@ -202,7 +202,12 @@
                     <section class="settings-section">
                         <h3 th:text="#{settings.nav.colorTheme}">主题色</h3>
                         <div class="color-options" id="color-theme-options">
-                            <!-- Color options will be rendered here -->
+                            <button class="theme-btn active" data-theme="meihei">煤黑</button>
+                            <button class="theme-btn" data-theme="github">GitHub</button>
+                            <button class="theme-btn" data-theme="wechat">微信绿</button>
+                            <button class="theme-btn" data-theme="vuepress">VuePress</button>
+                            <button class="theme-btn" data-theme="cobalt">钴蓝</button>
+                            <button class="theme-btn" data-theme="marry">喜庆红</button>
                         </div>
                     </section>
 

@@ -46,7 +46,9 @@ function applyTheme(themeId) {
 function applyFontSize(size) {
     settings.fontSize = size;
     document.documentElement.style.setProperty('--font-size', size + 'px');
-    document.getElementById('font-size-value').textContent = size + 'px';
+    document.documentElement.style.setProperty('--theme-font-size', size + 'px');
+    const display = document.getElementById('font-size-display');
+    if (display) display.textContent = size + 'px';
     saveSettings();
 }
 
@@ -54,7 +56,9 @@ function applyFontSize(size) {
 function applyLineHeight(height) {
     settings.lineHeight = height;
     document.documentElement.style.setProperty('--line-height', height);
-    document.getElementById('line-height-value').textContent = height;
+    document.documentElement.style.setProperty('--theme-line-height', height);
+    const display = document.getElementById('line-height-display');
+    if (display) display.textContent = height;
     saveSettings();
 }
 
@@ -231,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSettings();
 
     // Settings button
-    document.getElementById('btn-settings')?.addEventListener('click', openSettings);
+    document.getElementById('settings-btn')?.addEventListener('click', openSettings);
     document.getElementById('settings-close')?.addEventListener('click', closeSettings);
     document.getElementById('settings-overlay')?.addEventListener('click', closeSettings);
 
@@ -241,27 +245,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Font size slider
-    const fontSizeSlider = document.getElementById('font-size');
+    const fontSizeSlider = document.getElementById('font-size-slider');
     if (fontSizeSlider) {
         fontSizeSlider.value = settings.fontSize;
-        fontSizeSlider.addEventListener('input', () => applyFontSize(fontSizeSlider.value));
+        fontSizeSlider.addEventListener('input', () => {
+            applyFontSize(parseInt(fontSizeSlider.value, 10));
+        });
     }
 
     // Line height slider
-    const lineHeightSlider = document.getElementById('line-height');
+    const lineHeightSlider = document.getElementById('line-height-slider');
     if (lineHeightSlider) {
         lineHeightSlider.value = settings.lineHeight;
-        lineHeightSlider.addEventListener('input', () => applyLineHeight(lineHeightSlider.value));
+        lineHeightSlider.addEventListener('input', () => {
+            applyLineHeight(parseFloat(lineHeightSlider.value));
+        });
     }
 
     // Copy button
-    document.getElementById('btn-copy')?.addEventListener('click', () => {
+    document.getElementById('copy-btn')?.addEventListener('click', () => {
         const format = document.querySelector('.copy-format.active')?.dataset.format || 'social';
         copyContent(format);
     });
 
     // Export button
-    document.getElementById('btn-export')?.addEventListener('click', () => {
+    document.getElementById('export-btn')?.addEventListener('click', () => {
         const format = document.querySelector('.export-format.active')?.dataset.format || 'pdf';
         exportContent(format);
     });

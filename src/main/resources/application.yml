@@ -30,7 +30,7 @@ spring:
 
   # Internationalization
   messages:
-    basename: messages
+    basename: messages/messages
     encoding: UTF-8
     cache-duration: 3600
     fallback-to-system-locale: false
